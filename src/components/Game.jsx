@@ -1,3 +1,5 @@
+import he from 'he';
+
 import React, { useState } from "react";
 import { Container } from "./Container";
 import { useTrivia } from "../context/trivia-context";
@@ -43,7 +45,7 @@ export const Game = () => {
         </p>
       </header>
       <article className="flex flex-col gap-5">
-        <p className="font-funnel text-5xl text-slate-800">{question}</p>
+        <p className="font-funnel text-5xl text-slate-800">{he.decode(question)}</p>
         <div className="flex flex-col gap-3">
           {
             answers.map((a) => (

@@ -1,3 +1,5 @@
+import he from 'he';
+
 import React from "react";
 
 export const Answer = ({answer, correct_answer, guess, onClick}) => {
@@ -18,7 +20,7 @@ export const Answer = ({answer, correct_answer, guess, onClick}) => {
       className={`${baseStyle} ${dynamicStyle} ${guessStyle}`}
       onClick={() => onClick(answer)}
     >
-      {answer}
+      {he.decode(answer)}
     </button>
   );
 };
