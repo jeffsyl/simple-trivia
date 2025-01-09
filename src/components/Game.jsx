@@ -1,13 +1,11 @@
-import he from 'he';
-
-import { useState } from "react";
 import { Container } from "./Container";
 import { useTrivia } from "../context/trivia-context";
-import { Answer } from "./Answer";
 import { Question } from './Question';
+import { Answers } from "./Answers";
 
 export const Game = () => {
   const { index, questions, guess, score, dispatch } = useTrivia();
+
   const {
     category,
     question,
@@ -17,13 +15,7 @@ export const Game = () => {
   } = questions[index];
 
   const answers = [...incorrect_answers, correct_answer];
-
-  function handleGuess(g) {
-    dispatch({
-      type: 'guessed',
-      payload: g
-    })
-  }
+  
 
   function handleNext(){
     dispatch({
@@ -47,20 +39,12 @@ export const Game = () => {
       </header>
       <article className="flex flex-col gap-5">
         <Question question={question} />
-        <div className="flex flex-col gap-3">
-          {
-            answers.map((a) => (
-              <Answer
-                key={a}
-                answer={a}
-                correct_answer={correct_answer}
-                guess={guess}
-                onClick={handleGuess}
-              />
-            ))}
-        </div>
+        <Answers answers={answers} correct_answer={correct_answer} />
+
+
         {!!guess && index + 1 != questions.length && <button onClick={handleNext}>Next Question</button> }
         {!!guess && index + 1 == questions.length && <button onClick={handleComplete}>View Results</button> }
+
       </article>
       
     </Container>
