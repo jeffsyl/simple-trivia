@@ -1,5 +1,4 @@
 
-import React from "react";
 import { Container } from "./Container";
 import { useTrivia } from "../context/trivia-context";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container } from "./Container";
 import { useTrivia } from "../context/trivia-context";
 

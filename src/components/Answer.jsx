@@ -1,7 +1,5 @@
 import he from 'he';
 
-import React from "react";
-
 export const Answer = ({answer, correct_answer, guess, onClick}) => {
   const baseStyle = "text-md flex-1 rounded-lg border p-4 text-base text-slate-100 uppercase font-semibold text-left transition-all duration-200";
   
