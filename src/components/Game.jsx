@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Container } from "./Container";
 import { useTrivia } from "../context/trivia-context";
 import { Answer } from "./Answer";
+import { Question } from './Question';
 
 export const Game = () => {
   const { index, questions, guess, score, dispatch } = useTrivia();
@@ -45,7 +46,7 @@ export const Game = () => {
         </p>
       </header>
       <article className="flex flex-col gap-5">
-        <p className="font-funnel text-5xl text-slate-800">{he.decode(question)}</p>
+        <Question question={question} />
         <div className="flex flex-col gap-3">
           {
             answers.map((a) => (
