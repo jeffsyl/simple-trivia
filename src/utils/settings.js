@@ -38,3 +38,8 @@ export const types = [
     { value: "multiple", label: "Multiple Choice"},
     { value: "boolean", label: "True / False"},
 ]
+
+export const numQuestionsDef = {
+  min: 1,
+  max: 50
+}

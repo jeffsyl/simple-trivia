@@ -1,9 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
+import { prepareAnswers } from "../utils/helpers";
 
 const TriviaContext = createContext();
 
 const initialState = {
   questions: [],
+  answers: [],
+  correctAnswer: null,
   guess: null,
   index: 0,
   score: 0,
@@ -21,25 +24,33 @@ function reducer(state, action) {
       return { ...state, status: "loading" };
     case "setPreferences":
       return { ...state, [action.payload.name]: action.payload.value };
-    case "loaded":
+    case "loaded": {
+      const { correct_answer: correctAnswer, incorrect_answers: incorrectAnswers, type } = action.payload.results[0];
+      const answers = prepareAnswers(correctAnswer, incorrectAnswers, type);
       return {
         ...state,
         status: "play",
         questions: action.payload.results,
+        answers,
+        correctAnswer,
       };
+    }
     case "guessed":
       return {
         ...state,
         guess: action.payload,
       };
     case "increment": {
-      const isCorrect =
-        state.guess === state.questions[state.index].correct_answer;
+      const isCorrect = state.guess === state.questions[state.index].correctAnswer;
+      const { correct_answer: correctAnswer, incorrect_answers: incorrectAnswers, type } = state.questions[state.index + 1];
+      const answers = prepareAnswers(correctAnswer, incorrectAnswers, type);
       return {
         ...state,
         guess: null,
         score: isCorrect ? state.score + 1 : state.score,
         index: state.index + 1,
+        answers,
+        correctAnswer,
       };
     }
     case "complete":
@@ -48,30 +59,19 @@ function reducer(state, action) {
         status: "results",
       };
     case "reset":
-      return{
-        ...initialState
-      }
+      return {
+        ...initialState,
+      };
     default:
       throw new Error("Unknown action type");
   }
 }
 
 function TriviaProvider({ children }) {
-  const [
-    {
-      questions,
-      guess,
-      index,
-      score,
-      status,
-      error,
-      genre,
-      difficulty,
-      type,
-      numQuestions,
-    },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ questions, answers, correctAnswer, guess, index, score, status, error, genre, difficulty, type, numQuestions }, dispatch] = useReducer(
+    reducer,
+    initialState,
+  );
 
   async function getQuestions() {
     dispatch({ type: "loading" });
@@ -93,7 +93,6 @@ function TriviaProvider({ children }) {
 
       const res = await fetch(api.href);
       const data = await res.json();
-      console.log(data);
       dispatch({ type: "loaded", payload: data });
     } catch {
       dispatch({
@@ -107,6 +106,8 @@ function TriviaProvider({ children }) {
     <TriviaContext.Provider
       value={{
         questions,
+        answers,
+        correctAnswer,
         guess,
         getQuestions,
         index,
@@ -127,8 +128,7 @@ function TriviaProvider({ children }) {
 
 function useTrivia() {
   const context = useContext(TriviaContext);
-  if (context === undefined)
-    throw new Error("TriviaContext was used outside the TriviaProvider");
+  if (context === undefined) throw new Error("TriviaContext was used outside the TriviaProvider");
   return context;
 }
 

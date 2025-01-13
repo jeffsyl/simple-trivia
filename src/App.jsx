@@ -7,8 +7,6 @@ import { TriviaProvider, useTrivia } from "./context/trivia-context";
 function App() {
   const { status } = useTrivia();
 
-  console.log(status);
-
   if (status == "loading") {
     return <Spinner />;
   }
