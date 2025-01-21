@@ -1,8 +1,8 @@
-# React + Vite
+# Simple Trivia
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple trivia game that generates fun quizzes using the [Open Trivia Database](https://opentdb.com/).
 
-Currently, two official plugins are available:
+Notes:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- This app fetches trivia questions on the client side, allowing users to discover answers directly during gameplay if they want to cheat.
+- The app does not track previously asked questions, so subsequent games may include repeated questions.  
