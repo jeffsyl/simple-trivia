@@ -6,8 +6,7 @@ export const Answer = ({ answer, correctAnswer }) => {
 
   const guessed = guess !== null;
 
-  const baseStyle =
-    "text-md flex-1 rounded-lg border p-4 text-base text-slate-100 uppercase font-semibold text-left transition-all duration-200";
+  const baseStyle = "text-md flex-1 rounded-lg border p-4 text-base text-slate-100 uppercase font-semibold text-left transition-all duration-200";
 
   const dynamicStyle = guessed
     ? correctAnswer == answer

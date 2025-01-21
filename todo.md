@@ -10,7 +10,7 @@
     - Answers
 - Tech Used
     - Context for App Storage
-    - Tailwind for Storage
+    - Tailwind for Styling
     - Simple Fetch for getting questions
 - Look and Feel https://dribbble.com/shots/22063014-Sourcio-UI-UX
 
@@ -27,8 +27,8 @@
     - Install Tailwind ✅
     - Configure Tailwind with Prettier Tailwind Plugin ✅
     - Create Container Component ✅
-    - Create Welcome Layout
-    - Create Game Layout
-    - Divide into Components
-    - Creating Fetching Logic
-    - Creatie Game Mechanics
+    - Create Welcome Layout ✅
+    - Create Game Layout ✅
+    - Divide into Components ✅
+    - Creating Fetching Logic ✅
+    - Creatie Game Mechanics ✅

@@ -35,19 +35,20 @@ function reducer(state, action) {
         correctAnswer,
       };
     }
-    case "guessed":
+    case "guessed": {
+      const isCorrect = action.payload === state.correctAnswer;
       return {
         ...state,
         guess: action.payload,
+        score: isCorrect ? state.score + 1 : state.score,
       };
+    }
     case "increment": {
-      const isCorrect = state.guess === state.questions[state.index].correctAnswer;
       const { correct_answer: correctAnswer, incorrect_answers: incorrectAnswers, type } = state.questions[state.index + 1];
       const answers = prepareAnswers(correctAnswer, incorrectAnswers, type);
       return {
         ...state,
         guess: null,
-        score: isCorrect ? state.score + 1 : state.score,
         index: state.index + 1,
         answers,
         correctAnswer,
@@ -61,6 +62,13 @@ function reducer(state, action) {
     case "reset":
       return {
         ...initialState,
+      };
+    case "replay":
+      return {
+        ...state,
+        index: 0,
+        score: 0,
+        guess: null,
       };
     default:
       throw new Error("Unknown action type");
